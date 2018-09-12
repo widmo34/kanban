@@ -7,6 +7,18 @@ export function getSomething(req, res) {
 }
 
 
+// Show all notes 
+export function getNotes(req, res){
+  Note.find().exec((err, notes) => {
+    if(err){
+      res.status(500).send(err);
+    }
+    res.json({ notes });
+  })
+}
+
+
+// Create a single note 
 export function addNote(req, res){
   const { note, laneId} = req.body;
 
@@ -34,4 +46,19 @@ export function addNote(req, res){
         
     }
   )
+}
+
+// Remove a single note 
+export function deleteNote(req, res){
+  Note.findOne({ id: req.params.noteId }).exec((err, note) => {
+    if(err){
+      res.status(500).send(err);
+    }
+
+    note.remove(() => {
+      console.log('The note is deleted now')
+      res.status(200).end();
+    })
+
+  })
 }
