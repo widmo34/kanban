@@ -20,27 +20,33 @@ export function getNotes(req, res){
 
 // Create a single note 
 export function addNote(req, res){
-  const { note, laneId} = req.body;
+  const { note, laneId } = req.body;
 
+
+   console.log(note.task, laneId); 
   if(!note || !note.task || !laneId){
     res.status(400).end();
+    console.log('erro 29 ')
   }
 
   const newNote = new Note({
     task: note.task
   })
 
-  newNote.id = uuid();
+    newNote.id = uuid();
     newNote.save((err, saved) => {
         if(err){
           res.status(500).send(err);
         }
+      console.log(laneId);  
       Lane.findOne({ id: laneId })
         .then(lane => {
+          console.log(lane); 
           lane.notes.push(saved);
           return lane.save();
         })
         .then(() => {
+          console.log('działa'); 
           res.json(saved);
         })
         
@@ -62,3 +68,13 @@ export function deleteNote(req, res){
 
   })
 }
+
+// Edit a name of a note 
+export function editNote(req, res){
+
+  Note.findOneAndUpdate({id: req.params.noteId}, {task: req.body.name}, {new: true}).exec((err, note) => {
+    if(err) throw err;
+    res.json({ note });
+  })
+    
+}  
