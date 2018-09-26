@@ -1,8 +1,10 @@
 import React, { PropTypes } from 'react';
 import Note from './Note';
-import styles from './Notes.css';
+// import styles from './Notes.css';
+import Edit from '../../components/edit';
+import { updateNote, deleteNote, editNote } from './NoteActions';
 
-const Notes = ({ notes }) => {
+const Notes = ({ notes, laneId, editNote, updateNote, deleteNote }) => {
     return(
         <ul className="notes">
         
@@ -10,8 +12,19 @@ const Notes = ({ notes }) => {
             <Note
                 id={note.id}
                 key={note.id}
+                editing={note.editing}
             >
-            {note.task}
+           <Edit
+            editing={note.editing}
+            value={note.task}
+            onValueClick={() => editNote(note.id)}
+            onUpdate={(task) => updateNote({
+                ...note,
+                task,
+                editing: false,
+            })}
+            onDelete={() => deleteNote(note.id, laneId)}
+            />           
             </Note>    
         
         })}
@@ -21,6 +34,10 @@ const Notes = ({ notes }) => {
 }
 
 Notes.propTypes= {
+    deleteNote: PropTypes.func,
+    updateNote: PropTypes.func,
+    laneId: PropTypes.string,
+    editNote: PropTypes.func,
     notes: PropTypes.array,
 }
 

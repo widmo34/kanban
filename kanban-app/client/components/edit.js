@@ -1,5 +1,4 @@
-import React, { Component, PropTyes } from 'react';
-import styles from './Edit.css';
+import React, { Component, PropTypes } from 'react';
 
 export default class Edit extends Component {
     checkEnter = (e) => {
@@ -55,10 +54,10 @@ export default class Edit extends Component {
 
 }
 
-Edit.propTyes = {
+Edit.propTypes = {
     value: PropTypes.string,
     onUpdate: PropTypes.func,
     onValueClick: PropTypes.func,
     onDelete: PropTypes.func,
     editing: PropTypes.bool,
-}
+  };

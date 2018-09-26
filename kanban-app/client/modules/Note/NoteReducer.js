@@ -4,7 +4,7 @@ import { CREATE_NOTE, UPDATE_NOTE, DELETE_NOTE  } from './NoteActions';
 // Initial State
 const initialState = {};
 
-export default function notes(state = initialState, action){
+export  function notes(state = initialState, action){
   switch (action.type) {
 
     case CREATE_NOTE:
@@ -17,6 +17,14 @@ export default function notes(state = initialState, action){
 
     case DELETE_NOTE:
       return state.filter((note) => note.id !== action.id);
+
+
+    case EDIT_NOTE:
+      return state.map(note => {
+        if(note.id === noteId){
+          return Object.assign({}, note, {editing: true })
+        }
+      })  
         
 
     default:
@@ -24,4 +32,4 @@ export default function notes(state = initialState, action){
   }
 };
 
-export default NoteReducer;
+export default notes;

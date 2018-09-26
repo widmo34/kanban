@@ -5,7 +5,7 @@ import { CREATE_NOTE, DELETE_NOTE} from '../Note/NoteActions';
 // Initial State
 const initialState = {};
 
-export default function lanes(state = initialState, action){
+export  function lanes(state = initialState, action){
   switch (action.type) {
     case CREATE_LANE:
       return [...state, action.lane];
