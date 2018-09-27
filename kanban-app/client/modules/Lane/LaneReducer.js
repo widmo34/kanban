@@ -1,5 +1,5 @@
 // Import Actions
-import { CREATE_LANE, UPDATE_LANE, DELETE_LANE } from './LaneActions';
+import { CREATE_LANE, UPDATE_LANE, DELETE_LANE, EDIT_LANE } from './LaneActions';
 import { CREATE_NOTE, DELETE_NOTE} from '../Note/NoteActions';
 
 // Initial State
